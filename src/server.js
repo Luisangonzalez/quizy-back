@@ -11,8 +11,6 @@ config();
 process.env.DOCKER_DB ? process.env.MONGODB_DEV : process.env.DOCKE_DB;
 process.env.DOCKER_WEB_PORT ? process.env.WEB_PORT : process.env.DOCKER_WEB_PORT;
 
-console.log('ENV :', process.env.MONGODB_DEV, process.env.WEB_PORT);
-
 export const app = express();
 
 export const connect = () => {

@@ -50,7 +50,7 @@ jspm_packages
 yarn.lock
 
 # dist files
-quizy/dist/*
+dist/*
 
 # Environment (https://github.com/motdotla/dotenv)
 .env

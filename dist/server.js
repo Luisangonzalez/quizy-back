@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.connect = exports.app = undefined;
 
+require('newrelic');
+
 var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
@@ -27,8 +29,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 process.env.DOCKER_DB ? process.env.MONGODB_DEV : process.env.DOCKE_DB;
 process.env.DOCKER_WEB_PORT ? process.env.WEB_PORT : process.env.DOCKER_WEB_PORT;
-
-console.log('ENV :', process.env.MONGODB_DEV, process.env.WEB_PORT);
 
 var app = exports.app = (0, _express2.default)();
 
