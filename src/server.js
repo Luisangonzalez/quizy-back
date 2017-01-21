@@ -11,7 +11,14 @@ config();
 process.env.DOCKER_DB ? process.env.MONGODB_DEV : process.env.DOCKE_DB;
 process.env.DOCKER_WEB_PORT ? process.env.WEB_PORT : process.env.DOCKER_WEB_PORT;
 
+console.log('env.MONGODB_URI', process.env.MONGODB_URI);
+console.log('env.MONGODB_DEV', process.env.MONGODB_DEV);
+console.log('env.PORT', process.env.PORT);
+console.log('env.WEB_PORT', process.env.WEB_PORT);
+
+
 export const app = express();
+
 
 export const connect = () => {
     mongoose.connect(process.env.MONGODB_URI || process.env.MONGODB_DEV);
