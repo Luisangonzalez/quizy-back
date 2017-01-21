@@ -1,5 +1,5 @@
 {
-    "name": "quizy",
+    "name": "quizy-back",
     "version": "1.0.0",
     "description": "quiz app",
     "main": "index.js",
@@ -11,8 +11,12 @@
         "createTest": "node dist/createTest.js",
         "compile": "gulp compile"
     },
-    "author": "",
+    "author": "https://github.com/Luisangonzalez",
     "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Luisangonzalez/quizy-back"
+    },
     "dependencies": {
         "babel-eslint": "^7.1.1",
         "babel-plugin-transform-async-to-module-method": "^6.16.0",
