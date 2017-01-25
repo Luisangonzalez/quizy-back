@@ -1,16 +1,5 @@
 import { Test } from '../models/models';
-
-let getOne = (model) => {
-  return new Promise(function (resolve, reject) {
-    model.findOne().exec((err, model) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(model);
-      }
-    });
-  });
-};
+import { getOne } from './comuns';
 
 export const getOneTest = () => {
   return getOne(Test);
@@ -38,5 +27,55 @@ export const getOneTest = () => {
 //     res.send(err);
 //   } else {
 //     res.json(test);
+//   }
+// });
+
+// ES7 async
+
+export const saveTest = async (newTest) => {
+  try {
+    newTest.save();
+  } catch (e) {
+    console.error(e);
+  } finally {
+    console.log('Test Save async');
+  }
+};
+
+
+// connect();
+
+// With ES6 Promise
+
+// let saveDb = function async (newTest){
+//   new Promise(function () {
+//     try {
+//       newTest.save();
+//     } catch (e) {
+//        console.error(e);
+//     } finally {
+//       console.log('Test Save');
+//     }
+//   });
+// };
+//
+// saveDb(newTest);
+
+// or
+
+// newTest.save(()=>{
+//   console.log('Test save');
+//   })
+//   .catch((err) => {
+//     console.error('Error:');
+//  });
+
+// With co package
+
+// co(function * () {
+//   try {
+//     yield newTest.save();
+//   } catch (e) {
+//     console.error(e);
 //   }
 // });

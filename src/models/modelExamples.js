@@ -1,7 +1,3 @@
-import { connect } from './server';
-import 'babel-polyfill';
-// import co from 'co';
-
 import {
     Test,
     User,
@@ -9,9 +5,9 @@ import {
     ChooseCuestion,
     OneCuestion,
     ArrowCuestion
-} from './models/models';
+} from './models';
 
-let newUser = new User({
+export const newUserExample = new User({
     username: 'usernameString',
     name: 'nameString',
     LastName: 'lastNameString',
@@ -151,9 +147,9 @@ let newCuestionSection = new CuestionBase({
   type: 'SECTION'
 });
 
-let newTest = new Test({
+export const newTestExample = new Test({
     title: 'title_String',
-    author: newUser,
+    author: newUserExample,
     category: 'category_String',
     order: true,
     askLater: true,
@@ -195,75 +191,3 @@ let newTest = new Test({
         newCuestionSection
     ]
 });
-
-
-// const hostDB = () => {
-//   let db_host;
-//   if (process.env.DB_HOST) {
-//     db_host = process.env.DB_HOST;
-//   } else {
-//     db_host = 'localhost';
-//   }
-// return db_host;
-// };
-//
-// const connectDB = () => {
-//   mongoose.connect('mongodb://' + hostDB() + ':27017/test');
-//   mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
-//   mongoose.connection.once('open', function () {
-//     console.log('Connecto with mongoose');
-//   });
-// };
-//
-// connectDB();
-
-connect();
-
-// With ES6 Promise
-
-// let saveDb = function async (newTest){
-//   new Promise(function () {
-//     try {
-//       newTest.save();
-//     } catch (e) {
-//        console.error(e);
-//     } finally {
-//       console.log('Test Save');
-//     }
-//   });
-// };
-//
-// saveDb(newTest);
-
-// or
-
-// newTest.save(()=>{
-//   console.log('Test save');
-//   })
-//   .catch((err) => {
-//     console.error('Error:');
-//  });
-
-// With co package
-
-// co(function * () {
-//   try {
-//     yield newTest.save();
-//   } catch (e) {
-//     console.error(e);
-//   }
-// });
-
-// ES7 async
-
-let saveTest = async (newTest) => {
-  try {
-    newTest.save();
-  } catch (e) {
-     console.error(e);
-  } finally {
-    console.log('Test Save async');
-  }
-};
-
-saveTest(newTest);
