@@ -4,7 +4,10 @@ import mongoose from 'mongoose';
 import 'babel-polyfill';
 import { routes } from './routes';
 import { config } from 'dotenv';
+import { JwtAuth } from './auth/jwt';
 // import co from 'co';
+
+
 
 config();
 
@@ -19,6 +22,7 @@ export const connect = () => {
     mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
     mongoose.connection.once('open', function() {
         console.log('Connecto with mongoose');
+        app.use(JwtAuth().initialize());
         app.listen(process.env.PORT || process.env.WEB_PORT, function() {
             console.log('Listening app');
         });
