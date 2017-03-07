@@ -9,6 +9,7 @@ import jwt from 'jwt-simple';
 
 import bodyParser from 'body-parser';
 
+import { User } from './models/models';
 
 export let routes  = (app) => {
   app.use(bodyParser.json());
@@ -76,6 +77,16 @@ export let routes  = (app) => {
     try {
       saveUser(newUserExample);
       res.send('Example test save');
+    } catch (e) {
+      res.send('No save test ', e);
+    }
+  });
+
+  app.post('/signup/', (req, res) => {
+    try {
+      let newUser = new User(req.body);
+      saveUser(newUser);
+      res.send(newUser);
     } catch (e) {
       res.send('No save test ', e);
     }
