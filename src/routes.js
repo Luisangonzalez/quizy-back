@@ -1,5 +1,5 @@
 import { getOneTest, saveTest } from './controller/test';
-import { getOneUser, saveUser } from './controller/user';
+import { getOneUser, saveUser, findUser } from './controller/user';
 import { newTestExample, newUserExample } from './models/modelExamples';
 import { JwtAuth } from './auth/jwt';
 import moment from 'moment';
@@ -56,6 +56,15 @@ export let routes  = (app) => {
     getOneTest().then((v) => {
       res.send(v);
     });
+  });
+
+  app.post('/finduser', (req, res) => {
+    try {
+      findUser(req.body);
+      res.send('User fi');
+    } catch (e) {
+        console.error(e);
+    }
   });
 
   app.get('/savetestexample/', (req, res) => {
