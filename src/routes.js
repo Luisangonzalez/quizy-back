@@ -85,7 +85,14 @@ export let routes  = (app) => {
     try {
       let newUser = new User(req.body);
       saveUser(newUser);
-      res.send(newUser);
+      let payload = {
+        sub: newUser._id,
+        iat: moment().unix(),
+        exp: moment().add(60, 'seconds').unix()
+      };
+      let token = jwt.encode(payload, JWT_SECRET.jwtSecret);
+      res.send({ user: newUser.username, jwtToken: token });
+      // res.send(newUser);
     } catch (e) {
       res.send('No save test ', e);
     }

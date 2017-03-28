@@ -5,9 +5,9 @@ export const getOneUser = () => {
     return getOne(User);
 };
 
-export const saveUser = async(newUserExample) => {
+export const saveUser = async(newUser) => {
     try {
-        newUserExample.save();
+        newUser.save();
     } catch (e) {
         console.error(e);
     } finally {
