@@ -16,24 +16,31 @@ export const saveUser = async(newUserExample) => {
 };
 
 
-export const findUser = (criteria) => {
+export const findUser = (criteria, optionsFind) => {
+  let options = {
+    criteria: { email: criteria.body.email },
+    select: 'name username email hashed_password salt'
+  };
+  if (typeof optionsFind !== 'undefined' ) {
+    options = optionsFind;
+  }
+
   return new Promise(function (resolve, reject) {
-    const options = {
-      criteria: { username: criteria.username },
-      select: 'name username email hashed_password salt'
-    };
     User.findOne(options.criteria).exec((err, user) => {
       if (err) {
-        console.log(err);
         reject(err);
       } else {
-        if (!user.authenticate(criteria.password)) {
-          console.log('No auth');
+        if (!user) {
+          reject(err);
         } else {
-          console.log('Yes auth');
+          if (!user.authenticate(criteria.body.password)) {
+            console.log('No auth');
+            reject('No auth');
+          } else {
+            console.log('Yes auth');
+            resolve(user);
+          }
         }
-        // console.log(user);
-        resolve(user);
       }
     });
   });

@@ -3,7 +3,6 @@ import { getOneUser, saveUser, findUser } from './controller/user';
 import { newTestExample, newUserExample } from './models/modelExamples';
 import { JwtAuth } from './auth/jwt';
 import moment from 'moment';
-import { USERS } from './auth/users';
 import { JWT_SECRET } from './auth/config';
 import jwt from 'jwt-simple';
 
@@ -20,31 +19,22 @@ export let routes  = (app) => {
 
   app.get('/user', JwtAuth().authenticate(), (req, res) => {
       res.json({ status: 'authenticate' });
-      // var token = req.headers.authorization.split(" ")[1];
-      // console.log('req.headers.authorization :',req.headers);
-      // var payload = jwt.decode(token, 'MyS3cr3tK3Y');
-      // console.log('payload --> :', payload);
-      // console.log('Token --> :', token);
   });
 
   app.post('/token', (req, res) => {
       if (req.body.email && req.body.password) {
-          let email = req.body.email;
-          let password = req.body.password;
-          let user = USERS.find(function(u) {
-              return u.email === email && u.password === password;
+          findUser(req).then((user) => {
+            let payload = {
+              sub: user._id,
+              iat: moment().unix(),
+              exp: moment().add(60, 'seconds').unix()
+            };
+            let token = jwt.encode(payload, JWT_SECRET.jwtSecret);
+            res.send({ user: user.username, jwtToken: token });
+          }).catch(() => {
+            console.log('No user');
+            res.sendStatus(401);
           });
-          if (user) {
-              let payload = {
-                  sub: user.id,
-                  iat: moment().unix(),
-                  exp: moment().add(60, 'seconds').unix()
-              };
-              let token = jwt.encode(payload, JWT_SECRET.jwtSecret);
-              res.send({ user: user, jwtToken: token });
-          } else {
-              res.sendStatus(401);
-          }
       } else {
           res.sendStatus(401);
       }
