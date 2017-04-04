@@ -9,7 +9,7 @@ export const userSchema = new Schema({
     hashed_password: { type: String, default: '' },
     salt: { type: String, default: '' },
     name: String,
-    LastName: String,
+    lastName: String,
     email: String,
     url: String,
     image: String,
