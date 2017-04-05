@@ -27,7 +27,10 @@ let corsOptions = {
 
 export let routes  = (app) => {
   app.use(bodyParser.json());
-  app.use(cors(corsOptions));
+
+  if (process.env.CORS) {
+    app.use(cors(corsOptions));
+  }
 
   app.get('/', (req, res) => {
     res.send('Hello :)');
@@ -37,7 +40,7 @@ export let routes  = (app) => {
       res.json({ status: 'authenticate' });
   });
 
-  app.post('/token', (req, res) => {
+  app.post('/login', (req, res) => {
       if (req.body.email && req.body.password) {
           findUser(req).then((user) => {
             let payload = {
