@@ -7,8 +7,6 @@ import { config } from 'dotenv';
 import { JwtAuth } from './auth/jwt';
 // import co from 'co';
 
-
-
 config();
 
 process.env.DOCKER_DB ? process.env.MONGODB_DEV = process.env.DOCKER_DB : '';

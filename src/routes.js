@@ -6,12 +6,28 @@ import moment from 'moment';
 import { JWT_SECRET } from './auth/config';
 import jwt from 'jwt-simple';
 
-import bodyParser from 'body-parser';
-
 import { User } from './models/models';
+
+import bodyParser from 'body-parser';
+import cors from 'cors';
+// .env files
+import { config } from 'dotenv';
+config();
+process.env.FRONTEND_URI_PROD ? process.env.FRONTEND_URI = process.env.FRONTEND_URI_PROD : process.env.FRONTEND_URI;
+let whitelist = [process.env.FRONTEND_URI];
+let corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+};
 
 export let routes  = (app) => {
   app.use(bodyParser.json());
+  app.use(cors(corsOptions));
 
   app.get('/', (req, res) => {
     res.send('Hello :)');
@@ -92,7 +108,6 @@ export let routes  = (app) => {
       };
       let token = jwt.encode(payload, JWT_SECRET.jwtSecret);
       res.send({ user: newUser.username, jwtToken: token });
-      // res.send(newUser);
     } catch (e) {
       res.send('No save test ', e);
     }
