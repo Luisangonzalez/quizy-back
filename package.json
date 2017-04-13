@@ -7,7 +7,7 @@
     "test": "gulp lint",
     "postinstall": "npm run compile",
     "start": "node dist/server.js",
-    "watch": "node node_modules/gulp/bin/gulp.js watch",
+    "dev": "node node_modules/gulp/bin/gulp.js watch",
     "createTest": "node dist/createTest.js",
     "compile": "gulp compile"
   },
