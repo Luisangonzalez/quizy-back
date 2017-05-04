@@ -28,7 +28,7 @@ let corsOptions = {
 export let routes  = (app) => {
   app.use(bodyParser.json());
 
-  if (process.env.CORS) {
+  if (process.env.CORS == true) {
     app.use(cors(corsOptions));
   }
 
