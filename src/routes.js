@@ -2,6 +2,7 @@ import { getOneTest, saveTest } from './controller/test';
 import { getOneUser, saveUser, findUser } from './controller/user';
 import { newTestExample, newUserExample } from './models/modelExamples';
 import { JwtAuth } from './auth/jwt';
+// import { FbOauth } from './auth/facebook';
 import moment from 'moment';
 import { JWT_SECRET } from './auth/config';
 import jwt from 'jwt-simple';
@@ -39,6 +40,15 @@ export let routes  = (app) => {
   app.get('/user', JwtAuth().authenticate(), (req, res) => {
       res.json({ status: 'authenticate' });
   });
+
+  // // facebook server oauth
+  // // Only if login directly in server
+  // app.get('/auth/facebook', FbOauth().authenticate());
+  //
+  // app.get('/auth/facebook/callback', FbOauth().authenticate(), (req, res) => {
+  //     // Successful authentication, redirect home.
+  //     res.redirect('/');
+  // });
 
   app.post('/login', (req, res) => {
       if (req.body.email && req.body.password) {

@@ -5,6 +5,7 @@ import 'babel-polyfill';
 import { routes } from './routes';
 import { config } from 'dotenv';
 import { JwtAuth } from './auth/jwt';
+// import { FbOauth } from './auth/facebook';
 // import co from 'co';
 
 config();
@@ -21,6 +22,7 @@ export const connect = () => {
     mongoose.connection.once('open', function() {
         console.log('Connecto with mongoose');
         app.use(JwtAuth().initialize());
+        // app.use(FbOauth().initialize());
         app.listen(process.env.PORT || process.env.WEB_PORT, function() {
             console.log('Listening app');
         });
