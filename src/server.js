@@ -15,7 +15,6 @@ process.env.DOCKER_WEB_PORT ? process.env.WEB_PORT = process.env.DOCKER_WEB_PORT
 
 export const app = express();
 
-
 export const connect = () => {
     mongoose.connect(process.env.MONGODB_URI || process.env.MONGODB_DEV);
     mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
@@ -30,7 +29,7 @@ export const connect = () => {
     });
 };
 
-connect();
+connect(app);
 routes(app);
 
 // ES5 require('./routes.js')(app);
